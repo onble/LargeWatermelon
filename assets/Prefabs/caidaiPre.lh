@@ -1,0 +1,15 @@
+{
+  "_$ver": 1,
+  "_$id": "die4acab",
+  "_$type": "Image",
+  "name": "caidaiPre",
+  "x": 381.5,
+  "y": 228.5,
+  "width": 25,
+  "height": 15,
+  "anchorX": 0.5,
+  "anchorY": 0.5,
+  "skin": "res://c1209e04-602c-483b-af1f-3e24c4ae38b9",
+  "useSourceSize": true,
+  "color": "#ffffff"
+}

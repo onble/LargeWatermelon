@@ -80,6 +80,10 @@ export class Fruit extends Laya.Script {
                             (self.owner as Laya.Image).width
                         );
 
+                        if (selfFruitNumber == 9) {
+                            MainGame.Instance.createBigWaterMelonEffect();
+                        }
+
                         // 创建合成的水果
                         MainGame.Instance.createLevelUpFruit(selfFruitNumber + 1, new Laya.Vector2(pos.x, pos.y));
                         // 销毁两个碰撞的水果

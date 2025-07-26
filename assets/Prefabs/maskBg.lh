@@ -1,0 +1,61 @@
+{
+  "_$ver": 1,
+  "_$id": "nabl7lcu",
+  "_$type": "Box",
+  "name": "maskBg",
+  "width": 720,
+  "height": 2500,
+  "_mouseState": 2,
+  "_$child": [
+    {
+      "_$id": "f9ft18ub",
+      "_$type": "Image",
+      "name": "maskBg",
+      "y": -200,
+      "width": 720,
+      "height": 2500,
+      "alpha": 0.6,
+      "skin": "res://2d234eca-d57f-425b-a65d-b8aa0477214b",
+      "color": "#000000"
+    },
+    {
+      "_$id": "izt4o3ts",
+      "_$type": "Image",
+      "name": "53e8e9ea-a7ad-4d7d-ba2f-2068f3e65ef6",
+      "x": -27,
+      "y": 209,
+      "width": 256,
+      "height": 256,
+      "scaleX": 3,
+      "scaleY": 3,
+      "skin": "res://23ff7ef3-6809-44bc-b26e-aad623f9a40b",
+      "useSourceSize": true,
+      "color": "#ffffff"
+    },
+    {
+      "_$id": "4emk67rx",
+      "_$type": "Image",
+      "name": "10",
+      "x": 143,
+      "y": 393,
+      "width": 408,
+      "height": 408,
+      "skin": "res://76ebc33c-906c-4ef2-93ad-230e0e0c1239",
+      "useSourceSize": true,
+      "color": "#ffffff"
+    },
+    {
+      "_$id": "pxisl52d",
+      "_$type": "Image",
+      "name": "startBtn",
+      "x": 279,
+      "y": 1027,
+      "width": 163,
+      "height": 163,
+      "centerX": 0,
+      "skin": "res://98c130bc-8d0f-4298-a470-96cc4372c246",
+      "useSourceSize": true,
+      "color": "#ffffff"
+    }
+  ]
+}

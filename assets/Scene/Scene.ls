@@ -55,8 +55,8 @@
           "_$type": "Texture2D"
         },
         {
-          "_$uuid": "d14aecd1-a066-4bfa-8968-0a529ef45866",
-          "_$type": "Texture"
+          "_$uuid": "76ebc33c-906c-4ef2-93ad-230e0e0c1239",
+          "_$type": "Texture2D"
         }
       ],
       "scoreLabel": {
@@ -216,6 +216,55 @@
       },
       "effectNode": {
         "_$ref": "jcy6zsmz"
+      },
+      "maskBg": {
+        "_$uuid": "09f6ce17-dc31-48d2-a9ad-2b858a2ed070",
+        "_$type": "Prefab"
+      },
+      "caidaiSprites": [
+        {
+          "_$uuid": "c1209e04-602c-483b-af1f-3e24c4ae38b9",
+          "_$type": "Texture2D"
+        },
+        {
+          "_$uuid": "65d10a48-f1d3-47f1-ba4a-d78c18d52e36",
+          "_$type": "Texture2D"
+        },
+        {
+          "_$uuid": "3d5dd0d0-74db-4273-a18b-275126cc3e8b",
+          "_$type": "Texture2D"
+        },
+        {
+          "_$uuid": "276141ce-0aca-4cc6-8141-81147c134c5c",
+          "_$type": "Texture2D"
+        },
+        {
+          "_$uuid": "4886c1ee-5ac1-4544-b003-b38cdedd510d",
+          "_$type": "Texture2D"
+        },
+        {
+          "_$uuid": "f526d5cc-c4bb-4da2-82b1-ebfa4caecd69",
+          "_$type": "Texture2D"
+        },
+        {
+          "_$uuid": "a8318af9-074f-45b4-8a77-dd6a6da94963",
+          "_$type": "Texture2D"
+        },
+        {
+          "_$uuid": "26d9e799-c93f-4eb1-87d4-c2e70f4c1136",
+          "_$type": "Texture2D"
+        },
+        {
+          "_$uuid": "23ff7ef3-6809-44bc-b26e-aad623f9a40b",
+          "_$type": "Texture2D"
+        }
+      ],
+      "caidaiPre": {
+        "_$uuid": "861f1456-36f1-4e4c-933b-068309adf873",
+        "_$type": "Prefab"
+      },
+      "daxiguaEffectNode": {
+        "_$ref": "mo824bb4"
       }
     }
   ],
@@ -402,6 +451,21 @@
           "_$type": "f965e3d3-2953-4352-92ca-f54573453ba4",
           "scriptPath": "../src/AdjustWithHeight.ts",
           "offset": 120,
+          "hasShowEffect": false
+        }
+      ]
+    },
+    {
+      "_$id": "mo824bb4",
+      "_$type": "Sprite",
+      "name": "daxiguaEffectNode",
+      "width": 100,
+      "height": 2,
+      "_$comp": [
+        {
+          "_$type": "f965e3d3-2953-4352-92ca-f54573453ba4",
+          "scriptPath": "../src/AdjustWithHeight.ts",
+          "offset": 0,
           "hasShowEffect": false
         }
       ]

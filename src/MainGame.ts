@@ -46,6 +46,22 @@ export class MainGame extends Laya.Script {
     @property(Laya.Sprite)
     effectNode: Laya.Sprite = null;
 
+    // 遮罩背景图节点
+    @property(Laya.Prefab)
+    maskBg: Laya.Prefab = null;
+
+    // 彩带精灵图
+    @property([Laya.Texture2D])
+    caidaiSprites: Array<Laya.Texture2D> = [];
+
+    // 彩带预制节点
+    @property(Laya.Prefab)
+    caidaiPre: Laya.Prefab = null;
+
+    // 合成大西瓜效果挂载节点
+    @property(Laya.Sprite)
+    daxiguaEffectNode: Laya.Sprite = null;
+
     // 用来暂存生成的水果节点
     targetFruit: Laya.Image = null;
 
@@ -163,14 +179,14 @@ export class MainGame extends Laya.Script {
 
     // 绑定Touch事件
     bindTouch() {
-        this.owner.on(Laya.Event.MOUSE_DOWN, this.onTouchStart.bind(this));
-        this.owner.on(Laya.Event.MOUSE_DRAG, this.onTouchMove.bind(this));
-        this.owner.on(Laya.Event.MOUSE_UP, this.onTouchEnd.bind(this));
-        this.owner.on(Laya.Event.MOUSE_DRAG_END, this.onTouchEnd.bind(this));
+        this.owner.on(Laya.Event.MOUSE_DOWN, this.onTouchStart);
+        this.owner.on(Laya.Event.MOUSE_DRAG, this.onTouchMove);
+        this.owner.on(Laya.Event.MOUSE_UP, this.onTouchEnd);
+        this.owner.on(Laya.Event.MOUSE_DRAG_END, this.onTouchEnd);
     }
 
     // tocuh开始
-    onTouchStart(e: Laya.Event): void {
+    onTouchStart = (e: Laya.Event) => {
         if (null === this.targetFruit) {
             return;
         }
@@ -178,20 +194,20 @@ export class MainGame extends Laya.Script {
         // 把点击位置的x坐标赋值给水果
         const pos = this.topNode.globalToLocal(new Laya.Point(e.stageX, e.stageY));
         Laya.Tween.to(this.targetFruit, { x: pos.x, y: this.targetFruit.y }, 100);
-    }
+    };
 
     // 拖动
-    onTouchMove(e: Laya.Event): void {
+    onTouchMove = (e: Laya.Event) => {
         if (null === this.targetFruit) {
             return;
         }
 
         const pos = this.topNode.globalToLocal(new Laya.Point(e.stageX, e.stageY));
         this.targetFruit.pos(pos.x, this.targetFruit.y, true);
-    }
+    };
 
     // Touch结束
-    onTouchEnd(e: Laya.Event): void {
+    onTouchEnd = (e: Laya.Event) => {
         let t = this;
         if (null == t.targetFruit) {
             return;
@@ -222,7 +238,7 @@ export class MainGame extends Laya.Script {
                 ? (t.createOneFruit(3), t.createFruitCount++)
                 : t.createFruitCount > 5 && (t.createOneFruit(Math.floor(Math.random() * 5)), t.createFruitCount++);
         });
-    }
+    };
 
     createFruitBoomEffect(fruitNumber: number, t: Laya.Vector2, width: number) {
         let localT = new Laya.Point(t.x, t.y);
@@ -316,5 +332,45 @@ export class MainGame extends Laya.Script {
 
     randomInteger(min: number, max: number) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    createBigWaterMelonEffect() {
+        this.owner.off(Laya.Event.MOUSE_DOWN, this.onTouchStart);
+        this.owner.off(Laya.Event.MOUSE_DRAG, this.onTouchMove);
+        this.owner.off(Laya.Event.MOUSE_UP, this.onTouchEnd);
+        this.owner.off(Laya.Event.MOUSE_DRAG_END, this.onTouchEnd);
+        let _t = this;
+        // 大西瓜显示特效
+        let e = _t.maskBg.create() as Laya.Sprite;
+        _t.daxiguaEffectNode.addChild(e);
+
+        // let c = new Laya.Image();
+
+        // c.url = _t.fruitSprites[10].url;
+        // c.width = _t.fruitSprites[10].width;
+        // c.height = _t.fruitSprites[10].height;
+        // _t.daxiguaEffectNode.addChild(c);
+        // c.pos(150, 320);
+
+        // // 旋转的光圈背景图
+        // let r = new Laya.Image(_t.caidaiSprites[8].url);
+        // r.scale(3, 3, true);
+        // c.addChild(r);
+        // r.pos(-190, 170);
+        // Laya.Tween.to(
+        //     r,
+        //     { rotation: 360 },
+        //     5000,
+        //     Laya.Ease.backOut,
+        //     new Laya.Handler(this, () => {
+        //         r.active = false;
+        //         r.destroy();
+        //     })
+        // );
+
+        // 播放音效
+        Laya.SoundManager.playSound("musics/cheer.mp3", 1);
+        // 抛洒彩带效果
+        // TODO:
     }
 }
