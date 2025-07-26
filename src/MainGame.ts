@@ -227,6 +227,10 @@ export class MainGame extends Laya.Script {
     createFruitBoomEffect(fruitNumber: number, t: Laya.Vector2, width: number) {
         let localT = new Laya.Point(t.x, t.y);
         let _t = this;
+
+        // 播放音效
+        Laya.SoundManager.playSound("musics/boomBang.mp3", 1);
+        Laya.SoundManager.playSound("musics/deskBang.mp3", 1);
         for (let o = 0; o < 10; o++) {
             let c = _t.juicePre.create() as Laya.Image;
             _t.effectNode.addChild(c);
