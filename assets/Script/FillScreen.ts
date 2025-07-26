@@ -1,5 +1,7 @@
 const { regClass, property } = Laya;
-
+/**
+ * 引擎自带的适配方案更好，这里保留这个脚本只是为了和教程尽可能一致。其他冗余脚本也是这个原因。
+ */
 @regClass()
 export class FillScreen extends Laya.Script {
     declare owner: Laya.Sprite;

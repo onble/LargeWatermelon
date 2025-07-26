@@ -44,6 +44,29 @@
           "skin": "res://0baa6304-beb8-4dc8-bd36-acd96999fe17",
           "sizeGrid": "28,0,0,0,0",
           "color": "#ffffff"
+        },
+        {
+          "_$id": "62n6ibz4",
+          "_$type": "FontClip",
+          "name": "scoreLabel",
+          "x": 35,
+          "y": 114,
+          "width": 276,
+          "height": 116,
+          "interval": 50,
+          "skin": "res://8ea0f59d-8099-4a29-b726-d5521b048334",
+          "sheet": "0123456789",
+          "value": "0",
+          "spaceX": 0,
+          "spaceY": 0,
+          "_$comp": [
+            {
+              "_$type": "f965e3d3-2953-4352-92ca-f54573453ba4",
+              "scriptPath": "Script/AdjustWithHeight.ts",
+              "offset": 50,
+              "hasShowEffect": false
+            }
+          ]
         }
       ]
     }
