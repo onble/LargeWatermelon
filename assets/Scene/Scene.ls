@@ -105,7 +105,62 @@
           "height": 500,
           "skin": "res://0baa6304-beb8-4dc8-bd36-acd96999fe17",
           "sizeGrid": "28,0,0,0,0",
-          "color": "#ffffff"
+          "color": "#ffffff",
+          "_$comp": [
+            {
+              "_$type": "RigidBody",
+              "type": "static"
+            },
+            {
+              "_$id": "dcyt",
+              "_$type": "BoxCollider",
+              "density": 1,
+              "width": 720,
+              "height": 500
+            }
+          ]
+        },
+        {
+          "_$id": "0242x4zu",
+          "_$type": "Sprite",
+          "name": "left",
+          "x": -20,
+          "width": 20,
+          "height": 1280,
+          "_$comp": [
+            {
+              "_$type": "RigidBody",
+              "type": "static"
+            },
+            {
+              "_$id": "bxex",
+              "_$type": "BoxCollider",
+              "density": 1,
+              "width": 20,
+              "height": 1280
+            }
+          ]
+        },
+        {
+          "_$id": "fz7sz2wd",
+          "_$type": "Sprite",
+          "name": "right",
+          "x": 720,
+          "width": 20,
+          "height": 1280,
+          "_$comp": [
+            {
+              "_$type": "RigidBody",
+              "type": "static"
+            },
+            {
+              "_$id": "bxex",
+              "_$type": "BoxCollider",
+              "density": 1,
+              "width": 20,
+              "height": 1280
+            }
+          ]
         }
       ]
     },
@@ -128,6 +183,22 @@
           "_$type": "f965e3d3-2953-4352-92ca-f54573453ba4",
           "scriptPath": "../src/AdjustWithHeight.ts",
           "offset": 50,
+          "hasShowEffect": false
+        }
+      ]
+    },
+    {
+      "_$id": "a6zlbw2m",
+      "_$type": "Sprite",
+      "name": "fruitNode",
+      "y": 120,
+      "width": 100,
+      "height": 2,
+      "_$comp": [
+        {
+          "_$type": "f965e3d3-2953-4352-92ca-f54573453ba4",
+          "scriptPath": "../src/AdjustWithHeight.ts",
+          "offset": 120,
           "hasShowEffect": false
         }
       ]
