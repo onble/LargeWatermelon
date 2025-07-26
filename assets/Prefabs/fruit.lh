@@ -13,6 +13,18 @@
     {
       "_$type": "b083ac41-3440-43a8-b0ea-9ea93ea2501d",
       "scriptPath": "../src/Fruit.ts"
+    },
+    {
+      "_$type": "RigidBody",
+      "gravityScale": 3
+    },
+    {
+      "_$id": "vrat",
+      "_$type": "CircleCollider",
+      "friction": 1,
+      "restitution": 0.1,
+      "density": 1,
+      "radius": 76
     }
   ]
 }

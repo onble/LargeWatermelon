@@ -6,7 +6,8 @@
   },
   "modules": {
     "laya.ui": true,
-    "laya.d3": true
+    "laya.d3": true,
+    "laya.physics2D": true
   },
   "splash": {
     "fit": "center"

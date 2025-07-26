@@ -28,11 +28,17 @@ export class MainGame extends Laya.Script {
     // 已创建水果计数
     createFruitCount: number = 0;
 
+    onAwake(): void {
+        this.physicsSystemCtrl(true, false);
+    }
+
     onStart(): void {
         this.createOneFruit(0);
 
         this.bindTouch();
     }
+
+    physicsSystemCtrl(enablePhysics: boolean, enableDebug: boolean) {}
 
     // 创建一个水果
     createOneFruit(index: number): void {
@@ -46,6 +52,10 @@ export class MainGame extends Laya.Script {
         n.height = image.height;
         // 获取附加给水果节点的Fruit脚本组件，注意大小写敏感、
         n.getComponent(Fruit).fruitNumber = index;
+
+        // 创建时不受重力影响，碰撞物理边界半径为0
+        n.getComponent(Laya.RigidBody).type = "static";
+        n.getComponent(Laya.CircleCollider).radius = 1;
 
         // 从新变大的一个展示效果
         n.scale(0, 0, true);
@@ -97,7 +107,10 @@ export class MainGame extends Laya.Script {
         }
 
         // 让水果降落
-        // TODO:
+        let h = t.targetFruit.height;
+        t.targetFruit.getComponent(Laya.CircleCollider).radius = h / 2;
+        t.targetFruit.getComponent(Laya.RigidBody).type = "dynamic";
+        t.targetFruit.getComponent(Laya.RigidBody).setVelocity({ x: 0, y: 800 });
 
         // 去掉暂存指向
         t.targetFruit = null;
