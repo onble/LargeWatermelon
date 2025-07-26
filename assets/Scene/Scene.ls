@@ -9,6 +9,68 @@
   "name": "Scene2D",
   "width": 720,
   "height": 1280,
+  "_$comp": [
+    {
+      "_$type": "b4000ac9-b0ff-4fae-84cc-376c885e1a08",
+      "scriptPath": "../src/MainGame.ts",
+      "fruitSprites": [
+        {
+          "_$uuid": "92870a81-3759-431b-a75b-454e5ed58fea",
+          "_$type": "Texture2D"
+        },
+        {
+          "_$uuid": "e9daeaf6-af06-4657-82ec-fa6a7e214d31",
+          "_$type": "Texture2D"
+        },
+        {
+          "_$uuid": "16105f80-b03b-495a-9b7b-c5cb5ccaa156",
+          "_$type": "Texture2D"
+        },
+        {
+          "_$uuid": "f5a58278-53d7-4c3b-877f-bc7f1f214e90",
+          "_$type": "Texture2D"
+        },
+        {
+          "_$uuid": "87993206-5645-4b05-b01d-903b30abe363",
+          "_$type": "Texture2D"
+        },
+        {
+          "_$uuid": "c3bd5d99-0ced-4561-bb8e-456f9ad63a57",
+          "_$type": "Texture2D"
+        },
+        {
+          "_$uuid": "81f53be6-157e-4cac-89c1-b0ff568ae437",
+          "_$type": "Texture2D"
+        },
+        {
+          "_$uuid": "649cd504-266c-4a8e-8df8-48458fa14b09",
+          "_$type": "Texture2D"
+        },
+        {
+          "_$uuid": "3836db71-ee59-4905-b52d-2b56caff1ac5",
+          "_$type": "Texture2D"
+        },
+        {
+          "_$uuid": "d14aecd1-a066-4bfa-8968-0a529ef45866",
+          "_$type": "Texture2D"
+        },
+        {
+          "_$uuid": "d14aecd1-a066-4bfa-8968-0a529ef45866",
+          "_$type": "Texture"
+        }
+      ],
+      "scoreLabel": {
+        "_$ref": "62n6ibz4"
+      },
+      "fruitPre": {
+        "_$uuid": "3673779d-8bc5-4f8d-b159-d669ce94989b",
+        "_$type": "Prefab"
+      },
+      "topNode": {
+        "_$ref": "qmf31hwz"
+      }
+    }
+  ],
   "_$child": [
     {
       "_$id": "2fov3f1w",
@@ -86,20 +148,6 @@
         }
       ],
       "_$child": [
-        {
-          "_$id": "gxioiz2o",
-          "_$type": "Sprite",
-          "name": "fruit",
-          "x": 360,
-          "width": 153,
-          "height": 153,
-          "anchorX": 0.5,
-          "anchorY": 0.5,
-          "texture": {
-            "_$uuid": "87993206-5645-4b05-b01d-903b30abe363",
-            "_$type": "Texture"
-          }
-        },
         {
           "_$id": "bghl9kg4",
           "_$type": "Sprite",

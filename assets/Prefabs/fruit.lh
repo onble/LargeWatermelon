@@ -1,0 +1,18 @@
+{
+  "_$ver": 1,
+  "_$id": "bhtgl28y",
+  "_$type": "Image",
+  "name": "fruit",
+  "width": 153,
+  "height": 152,
+  "anchorX": 0.5,
+  "anchorY": 0.5,
+  "skin": "res://87993206-5645-4b05-b01d-903b30abe363",
+  "color": "#ffffff",
+  "_$comp": [
+    {
+      "_$type": "b083ac41-3440-43a8-b0ea-9ea93ea2501d",
+      "scriptPath": "../src/Fruit.ts"
+    }
+  ]
+}
