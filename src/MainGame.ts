@@ -12,7 +12,7 @@ export class MainGame extends Laya.Script {
 
     // 分数label标签
     @property(Laya.FontClip)
-    public scoreLabel: Laya.Label = null;
+    public scoreLabel: Laya.FontClip = null;
 
     // 水果预制节点资源
     @property(Laya.Prefab)
@@ -22,13 +22,31 @@ export class MainGame extends Laya.Script {
     @property(Laya.Sprite)
     public topNode: Laya.Sprite = null;
 
+    // 用来挂载落下的水果，作为他们的父节点，方便遍历查找
+    @property(Laya.Sprite)
+    fruitNode: Laya.Sprite = null;
+
     // 用来暂存生成的水果节点
     targetFruit: Laya.Image = null;
 
     // 已创建水果计数
     createFruitCount: number = 0;
 
+    // 分数变动和结果
+    scoreObj = {
+        isScoreChanged: false,
+        target: 0,
+        change: 0,
+        score: 0,
+    };
+
+    // 设置一个静态单例引用，方便其他类中调用该类方法
+    static Instance: MainGame = null;
+
     onAwake(): void {
+        null != MainGame.Instance && MainGame.Instance.destroy();
+        MainGame.Instance = this;
+
         this.physicsSystemCtrl(true, false);
     }
 
@@ -37,6 +55,59 @@ export class MainGame extends Laya.Script {
 
         this.bindTouch();
     }
+
+    onUpdate(): void {
+        this.updateScoreLabel();
+    }
+
+    /**
+     * 创建一个升级的水果
+     * @param fruitNumber 水果编号
+     * @param position 水果位置
+     */
+    createLevelUpFruit(fruitNumber: number, position: Laya.Vector2) {
+        let _t = this;
+        let o = this.fruitPre.create() as Laya.Image;
+        _t.fruitNode.addChild(o);
+        o.skin = _t.fruitSprites[fruitNumber].url;
+        o.width = _t.fruitSprites[fruitNumber].width;
+        o.height = _t.fruitSprites[fruitNumber].height;
+        o.getComponent(Fruit).fruitNumber = fruitNumber;
+        o.pos(position.x, position.y);
+        o.scale(0, 0, true);
+
+        o.getComponent(Laya.RigidBody).linearVelocity = { x: 0, y: 100 };
+        o.getComponent(Laya.CircleCollider).radius = o.height / 2;
+        Laya.Tween.to(o, { scaleX: 1, scaleY: 1 }, 500, Laya.Ease.backOut, new Laya.Handler(this, () => {}));
+    }
+
+    //#region 分数面板更新
+    setScoreTween(score: number) {
+        let scoreObj = this.scoreObj;
+        if (scoreObj.target != score) {
+            scoreObj.target = score;
+            scoreObj.change = Math.abs(scoreObj.target - scoreObj.score);
+            scoreObj.isScoreChanged = true;
+        }
+    }
+
+    /**
+     * 这里的分数更新是把总分传过去然后和原分值比较出差值，通过update函数把差值一点点更新到scoreLabel中，形成分数滚动效果。
+     */
+    updateScoreLabel() {
+        let scoreObj = this.scoreObj;
+        if (scoreObj.isScoreChanged) {
+            scoreObj.score += (Laya.timer.delta / 1000) * scoreObj.change * 5;
+            if (scoreObj.score >= scoreObj.target) {
+                scoreObj.score = scoreObj.target;
+                scoreObj.isScoreChanged = false;
+            }
+            const t = Math.floor(scoreObj.score);
+            this.scoreLabel.value = t.toString();
+        }
+    }
+
+    //#endregion 分数面板更新
 
     physicsSystemCtrl(enablePhysics: boolean, enableDebug: boolean) {}
 
@@ -55,7 +126,7 @@ export class MainGame extends Laya.Script {
 
         // 创建时不受重力影响，碰撞物理边界半径为0
         n.getComponent(Laya.RigidBody).type = "static";
-        n.getComponent(Laya.CircleCollider).radius = 1;
+        n.getComponent(Laya.CircleCollider).enabled = false;
 
         // 从新变大的一个展示效果
         n.scale(0, 0, true);
@@ -86,7 +157,7 @@ export class MainGame extends Laya.Script {
 
         // 把点击位置的x坐标赋值给水果
         const pos = this.topNode.globalToLocal(new Laya.Point(e.stageX, e.stageY));
-        Laya.Tween.to(this.targetFruit, { x: pos.x, y: pos.y }, 100);
+        Laya.Tween.to(this.targetFruit, { x: pos.x, y: this.targetFruit.y }, 100);
     }
 
     // 拖动
@@ -96,7 +167,7 @@ export class MainGame extends Laya.Script {
         }
 
         const pos = this.topNode.globalToLocal(new Laya.Point(e.stageX, e.stageY));
-        this.targetFruit.pos(pos.x, pos.y, true);
+        this.targetFruit.pos(pos.x, this.targetFruit.y, true);
     }
 
     // Touch结束
@@ -109,6 +180,7 @@ export class MainGame extends Laya.Script {
         // 让水果降落
         let h = t.targetFruit.height;
         t.targetFruit.getComponent(Laya.CircleCollider).radius = h / 2;
+        t.targetFruit.getComponent(Laya.CircleCollider).enabled = true;
         t.targetFruit.getComponent(Laya.RigidBody).type = "dynamic";
         t.targetFruit.getComponent(Laya.RigidBody).setVelocity({ x: 0, y: 800 });
 

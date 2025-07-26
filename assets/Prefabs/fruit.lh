@@ -16,7 +16,9 @@
     },
     {
       "_$type": "RigidBody",
-      "gravityScale": 3
+      "gravityScale": 3,
+      "category": 2,
+      "mask": 14
     },
     {
       "_$id": "vrat",
@@ -24,6 +26,7 @@
       "friction": 1,
       "restitution": 0.1,
       "density": 1,
+      "label": "fruit",
       "radius": 76
     }
   ]

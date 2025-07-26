@@ -4,6 +4,14 @@
     "designHeight": 1280,
     "scaleMode": "fixedwidth"
   },
+  "physics2D": {
+    "layers": [
+      "Default",
+      "fruit",
+      "wall",
+      "downwall"
+    ]
+  },
   "modules": {
     "laya.ui": true,
     "laya.d3": true,

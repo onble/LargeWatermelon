@@ -68,6 +68,9 @@
       },
       "topNode": {
         "_$ref": "qmf31hwz"
+      },
+      "fruitNode": {
+        "_$ref": "a6zlbw2m"
       }
     }
   ],
@@ -109,12 +112,15 @@
           "_$comp": [
             {
               "_$type": "RigidBody",
-              "type": "static"
+              "type": "static",
+              "category": 8,
+              "mask": 2
             },
             {
               "_$id": "dcyt",
               "_$type": "BoxCollider",
               "density": 1,
+              "label": "downwall",
               "width": 720,
               "height": 500
             }
@@ -130,12 +136,15 @@
           "_$comp": [
             {
               "_$type": "RigidBody",
-              "type": "static"
+              "type": "static",
+              "category": 4,
+              "mask": 2
             },
             {
               "_$id": "bxex",
               "_$type": "BoxCollider",
               "density": 1,
+              "label": "",
               "width": 20,
               "height": 1280
             }
@@ -151,7 +160,9 @@
           "_$comp": [
             {
               "_$type": "RigidBody",
-              "type": "static"
+              "type": "static",
+              "category": 4,
+              "mask": 2
             },
             {
               "_$id": "bxex",
