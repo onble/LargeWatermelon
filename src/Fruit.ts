@@ -53,6 +53,7 @@ export class Fruit extends Laya.Script {
                 }
 
                 let pos = { x: (other.owner as Laya.Image).x, y: (other.owner as Laya.Image).y };
+                let pos2 = { x: (other.owner as Laya.Image).x, y: (other.owner as Laya.Image).y };
 
                 // TODO:合并效果，音效，得分，生成一个新的水果
 
@@ -72,7 +73,12 @@ export class Fruit extends Laya.Script {
                     100,
                     undefined,
                     new Laya.Handler(this, () => {
-                        // TODO:创建爆浆效果，果汁飞溅的效果
+                        // 创建爆浆效果，果汁飞溅的效果
+                        MainGame.Instance.createFruitBoomEffect(
+                            selfFruitNumber,
+                            new Laya.Vector2(pos2.x, pos2.y),
+                            (self.owner as Laya.Image).width
+                        );
 
                         // 创建合成的水果
                         MainGame.Instance.createLevelUpFruit(selfFruitNumber + 1, new Laya.Vector2(pos.x, pos.y));

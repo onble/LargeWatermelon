@@ -26,6 +26,26 @@ export class MainGame extends Laya.Script {
     @property(Laya.Sprite)
     fruitNode: Laya.Sprite = null;
 
+    // 果汁效果图，水果颗粒
+    @property([Laya.Texture2D])
+    fruitL: Array<Laya.Texture2D> = [];
+
+    // 果粒散溅
+    @property([Laya.Texture2D])
+    guozhiL: Array<Laya.Texture2D> = [];
+
+    // 果汁效果
+    @property([Laya.Texture2D])
+    guozhiZ: Array<Laya.Texture2D> = [];
+
+    // 果汁预制资源
+    @property(Laya.Prefab)
+    juicePre: Laya.Prefab = null;
+
+    // 效果挂载的节点
+    @property(Laya.Sprite)
+    effectNode: Laya.Sprite = null;
+
     // 用来暂存生成的水果节点
     targetFruit: Laya.Image = null;
 
@@ -202,5 +222,95 @@ export class MainGame extends Laya.Script {
                 ? (t.createOneFruit(3), t.createFruitCount++)
                 : t.createFruitCount > 5 && (t.createOneFruit(Math.floor(Math.random() * 5)), t.createFruitCount++);
         });
+    }
+
+    createFruitBoomEffect(fruitNumber: number, t: Laya.Vector2, width: number) {
+        let localT = new Laya.Point(t.x, t.y);
+        let _t = this;
+        for (let o = 0; o < 10; o++) {
+            let c = _t.juicePre.create() as Laya.Image;
+            _t.effectNode.addChild(c);
+            c.skin = _t.guozhiL[fruitNumber].url;
+            let a = 359 * Math.random();
+            let i = 30 * Math.random() + width;
+            let l = new Laya.Vector2(Math.sin((a * Math.PI) / 180) * i, Math.cos((a * Math.PI) / 180) * i);
+            let randomScale = 0.5 * Math.random() + width / 100;
+            c.scale(randomScale, randomScale, true);
+            let p = 0.5 * Math.random();
+            const randomRotate = _t.randomInteger(-360, 360);
+            c.pos(localT.x, localT.y);
+            Laya.Tween.to(
+                c,
+                {
+                    x: c.x + l.x,
+                    y: c.y + l.y,
+                    scaleX: 0.3,
+                    scaleY: 0.3,
+                    alpha: 0.1,
+                    skewX: randomRotate,
+                    skewY: randomRotate,
+                },
+                p * 1000,
+                undefined,
+                new Laya.Handler(this, () => {
+                    c.active = false;
+                    c.destroy();
+                })
+            );
+        }
+
+        for (let f = 0; f < 20; f++) {
+            let h = _t.juicePre.create() as Laya.Image;
+            _t.effectNode.addChild(h);
+            h.skin = _t.fruitL[fruitNumber].url;
+            h.active = true;
+            let a = 359 * Math.random();
+            let i = 30 * Math.random() + width;
+            let l = new Laya.Vector2(Math.sin((a * Math.PI) / 180) * i, Math.cos((a * Math.PI) / 180) * i);
+            let randomScale = 0.5 * Math.random() + width / 100;
+            h.scale(randomScale, randomScale, true);
+            let p = 0.5 * Math.random();
+            h.pos(localT.x, localT.y);
+            Laya.Tween.to(
+                h,
+                {
+                    x: h.x + l.x,
+                    y: h.y + l.y,
+                    scaleX: 0.3,
+                    scaleY: 0.3,
+                    alpha: 0.1,
+                },
+                p * 1000,
+                undefined,
+                new Laya.Handler(this, () => {
+                    h.active = false;
+                    h.destroy();
+                })
+            );
+
+            let m = _t.juicePre.create() as Laya.Image;
+            _t.effectNode.addChild(m);
+            m.active = true;
+            m.skin = _t.guozhiZ[fruitNumber].url;
+            m.pos(localT.x, localT.y);
+            m.scale(0, 0, true);
+            const randomRotate = _t.randomInteger(0, 360);
+            m.skewX = randomRotate;
+            m.skewY = randomRotate;
+            Laya.Tween.to(
+                m,
+                { scaleX: 0.3, scaleY: 0.3, alpha: 0 },
+                p * 1000,
+                undefined,
+                new Laya.Handler(this, () => {
+                    m.active = false;
+                    m.destroy();
+                })
+            );
+        }
+    }
+
+    randomInteger(min: number, max: number) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 }

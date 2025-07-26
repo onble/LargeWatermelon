@@ -1,0 +1,15 @@
+{
+  "_$ver": 1,
+  "_$id": "wdzj2xy5",
+  "_$type": "Image",
+  "name": "juicePre",
+  "x": 223,
+  "y": 517,
+  "width": 319,
+  "height": 292,
+  "anchorX": 0.5,
+  "anchorY": 0.5,
+  "skin": "res://ede31503-4075-434e-838d-f63695466d2c",
+  "useSourceSize": true,
+  "color": "#ffffff"
+}
