@@ -12,6 +12,17 @@ export class Fruit extends Laya.Script {
     // 和底部边界的碰撞次数，用来标记第一次碰撞时播放音效
     downWallColl: number = 0;
 
+    edgeX: number = 0;
+
+    //过线停留时间
+    checkEndTime: number = 0;
+
+    //碰撞合并次数
+    combineCount: number = 0;
+
+    //已经触发过线的次数，防止一直触发
+    endCount: number = 0;
+
     // 碰撞开始事件
     onTriggerEnter(other: Laya.ColliderBase, self?: Laya.ColliderBase, contact?: any): void {
         let _t = this;
@@ -93,6 +104,44 @@ export class Fruit extends Laya.Script {
                         self.owner.destroy();
                     })
                 );
+            }
+        }
+    }
+    onUpdate(): void {
+        let _t = this;
+
+        // 防止水果超出左右边界
+        if (_t.owner.x < this.owner.width / 2) {
+            this.owner.x = this.owner.width / 2;
+        } else if (_t.owner.x > 720 - this.owner.width / 2) {
+            this.owner.x = 720 - this.owner.width / 2;
+        }
+
+        // 碰线检测
+        if (_t.owner.parent.name == "fruitNode") {
+            _t.checkEndTime += Laya.timer.delta / 1000;
+            if (_t.owner.y < MainGame.Instance.dashLineNode.y && _t.endCount == 0 && _t.checkEndTime > 3) {
+                _t.owner.color = "#FF0000";
+                // 将不透明度变化转换为 Laya 的 alpha (0-1)
+                const fadeToTransparent = { alpha: 0 };
+                const fadeToOpaque = { alpha: 1 }; // Cocos的255对应Laya的1
+
+                // 创建闪烁动画序列
+                Laya.Tween.to(
+                    this.owner,
+                    fadeToTransparent,
+                    300,
+                    Laya.Ease.linearIn,
+                    Laya.Handler.create(this, () => {
+                        Laya.Tween.to(this.owner, fadeToOpaque, 300, Laya.Ease.linearIn);
+                    })
+                ).repeat = 3; // 重复整个序列3次
+
+                // 3次重复后执行结束游戏
+                Laya.timer.once(1800, this, () => {
+                    // 0.3s*2 * 3 = 1800ms
+                    MainGame.Instance.gameOver();
+                });
             }
         }
     }

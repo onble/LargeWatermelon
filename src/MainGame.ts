@@ -62,6 +62,20 @@ export class MainGame extends Laya.Script {
     @property(Laya.Sprite)
     daxiguaEffectNode: Laya.Sprite = null;
 
+    @property(Laya.Prefab)
+    gameOverPre: Laya.Prefab = null;
+
+    @property(Laya.Sprite)
+    dashLineNode: Laya.Sprite = null;
+
+    isDashLineInit: boolean = false;
+
+    // 标记游戏结束
+    gameOverSign: number = 0;
+
+    // 全部水果最高高度
+    theFruitHeight: number = -1200;
+
     // 用来暂存生成的水果节点
     targetFruit: Laya.Image = null;
 
@@ -372,5 +386,64 @@ export class MainGame extends Laya.Script {
         Laya.SoundManager.playSound("musics/cheer.mp3", 1);
         // 抛洒彩带效果
         // TODO:
+    }
+
+    /** 游戏结束 */
+    gameOver() {
+        var _t = this;
+        if (_t.gameOverSign == 0) {
+            // 游戏结束，水果自爆
+            for (
+                let t = 0,
+                    n = function (n: number) {
+                        setTimeout(function () {
+                            _t.createFruitBoomEffect(
+                                // 有可能刚好自爆时候游戏结束不加?会报错
+                                _t.fruitNode.getChildAt(n)?.getComponent(Fruit).fruitNumber,
+                                new Laya.Vector2(
+                                    (_t.fruitNode.getChildAt(n) as Laya.Image).x,
+                                    (_t.fruitNode.getChildAt(n) as Laya.Image).y
+                                ),
+                                (_t.fruitNode.getChildAt(n) as Laya.Image).width
+                            );
+
+                            let score =
+                                _t.scoreObj.target + _t.fruitNode.getChildAt(n).getComponent(Fruit).fruitNumber + 1;
+                            _t.setScoreTween(score);
+                            _t.fruitNode.getChildAt(n).active = false;
+                            _t.fruitNode.getChildAt(n).destroy();
+                        }, 100 * ++t);
+                    },
+                    o = this.fruitNode.numChildren - 1;
+                o >= 0;
+                o--
+            )
+                n(o);
+
+            _t.dashLineNode.active = true;
+
+            for (let c = 1; c < _t.topNode.numChildren; c++) {
+                _t.topNode.getChildAt(c).active = false;
+            }
+
+            Laya.timer.once(3000, this, () => {
+                _t.showGameOverPanel();
+            });
+
+            _t.gameOverSign++;
+        }
+    }
+
+    /**
+     *  显示游戏失败的界面
+     */
+    showGameOverPanel() {
+        this.owner.off(Laya.Event.MOUSE_DOWN, this.onTouchStart);
+        this.owner.off(Laya.Event.MOUSE_DRAG, this.onTouchMove);
+        this.owner.off(Laya.Event.MOUSE_UP, this.onTouchEnd);
+        this.owner.off(Laya.Event.MOUSE_DRAG_END, this.onTouchEnd);
+
+        const gameOverPanel = this.gameOverPre.create();
+        this.owner.addChild(gameOverPanel);
     }
 }

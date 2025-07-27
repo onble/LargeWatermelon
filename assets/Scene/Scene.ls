@@ -265,6 +265,13 @@
       },
       "daxiguaEffectNode": {
         "_$ref": "mo824bb4"
+      },
+      "gameOverPre": {
+        "_$uuid": "ca729a53-3059-47d0-bf34-76cf22ba48df",
+        "_$type": "Prefab"
+      },
+      "dashLineNode": {
+        "_$ref": "bghl9kg4"
       }
     }
   ],
