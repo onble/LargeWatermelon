@@ -126,7 +126,7 @@ export class MainGame extends Laya.Script {
         o.pos(position.x, position.y);
         o.scale(0, 0, true);
 
-        o.getComponent(Laya.RigidBody).linearVelocity = { x: 0, y: 10 };
+        o.getComponent(Laya.RigidBody).linearVelocity = { x: 0, y: -10 };
         o.getComponent(Laya.CircleCollider).radius = o.height / 2;
         Laya.Tween.to(o, { scaleX: 1, scaleY: 1 }, 500, Laya.Ease.backOut, new Laya.Handler(this, () => {}));
     }
