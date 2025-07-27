@@ -126,7 +126,7 @@ export class MainGame extends Laya.Script {
         o.pos(position.x, position.y);
         o.scale(0, 0, true);
 
-        o.getComponent(Laya.RigidBody).linearVelocity = { x: 0, y: 100 };
+        o.getComponent(Laya.RigidBody).linearVelocity = { x: 0, y: 10 };
         o.getComponent(Laya.CircleCollider).radius = o.height / 2;
         Laya.Tween.to(o, { scaleX: 1, scaleY: 1 }, 500, Laya.Ease.backOut, new Laya.Handler(this, () => {}));
     }
@@ -232,7 +232,7 @@ export class MainGame extends Laya.Script {
         t.targetFruit.getComponent(Laya.CircleCollider).radius = h / 2;
         t.targetFruit.getComponent(Laya.CircleCollider).enabled = true;
         t.targetFruit.getComponent(Laya.RigidBody).type = "dynamic";
-        t.targetFruit.getComponent(Laya.RigidBody).setVelocity({ x: 0, y: 800 });
+        t.targetFruit.getComponent(Laya.RigidBody).setVelocity({ x: 0, y: 80 });
 
         // 去掉暂存指向
         t.targetFruit = null;
@@ -396,10 +396,13 @@ export class MainGame extends Laya.Script {
             for (
                 let t = 0,
                     n = function (n: number) {
+                        if (!_t.fruitNode.getChildAt(n)) {
+                            // 有可能刚好自爆时候游戏结束,可能会获得不到节点而报错
+                            return;
+                        }
                         setTimeout(function () {
                             _t.createFruitBoomEffect(
-                                // 有可能刚好自爆时候游戏结束不加?会报错
-                                _t.fruitNode.getChildAt(n)?.getComponent(Fruit).fruitNumber,
+                                _t.fruitNode.getChildAt(n).getComponent(Fruit).fruitNumber,
                                 new Laya.Vector2(
                                     (_t.fruitNode.getChildAt(n) as Laya.Image).x,
                                     (_t.fruitNode.getChildAt(n) as Laya.Image).y
